@@ -1,23 +1,4 @@
-//win by getting 3 x's or 3 o's in a row
-//if no one gets 3 in a row, both players lose
-//rows go vertically, horizontally or diagonally
-
-// 1.)
-//create a displayBoard function which will take a data and display vertical and horizontal lines and x's and o's depending on state of the board
-
-//2.)
-//two-player game and we would want to alternate turns between players and each player is assigned an x or an 0 - define players: player1 & player2
-
-//input for where the next move is
-
-//there are nine unique position on the board - create an array of each unique positions in a particular order to represent the position in the grid and then remove the position from the array when selected by the player and then when the array.length === 0 the game is over 
-
-///3.) Create a function that check for a winning three in a row
-
-
 function ticTacToe() {
-
-    // Variables
 
     let winner = null;
 
@@ -30,8 +11,6 @@ function ticTacToe() {
     let availablePositions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     const playerList = ['x', 'o']
-
-    //Helper Functions
 
     function displayBoard(gameState) {
 
@@ -59,7 +38,6 @@ function ticTacToe() {
             //After the player selects position, it is removed from the array so it isn't selected again
             let selectedPositionIndex = availablePositions.indexOf(selectedPosition)
             availablePositions.splice(selectedPositionIndex, 1 )
-            console.log({availablePositions})
 
             //Loop through the tic tac toe board grid
             boardGrid.forEach(rowArray => {
@@ -72,6 +50,38 @@ function ticTacToe() {
 
             displayBoard(boardGrid)
 
+            //Check for 3 in a row winner
+            //Winning row combinations:
+            // boardGrid[0][0] boardGrid[0][1] boardGrid[0][2]
+            // boardGrid[1][0] boardGrid[1][1] boardGrid[1][2]
+            // boardGrid[2][0] boardGrid[2][1] boardGrid[2][2]
+            boardGrid.forEach(rowArray => {
+                // console.log("rowArray at index 0:", rowArray[0])
+                if(rowArray[0] === player && rowArray[1] === player && rowArray[2] === player) {
+                    winner = player
+                }
+            })
+
+            //Winning column combinations:
+            // boardGrid[0][0] boardGrid[1][0] boardGrid[2][0]
+            // boardGrid[0][1] boardGrid[1][1] boardGrid[2][1]
+            // boardGrid[0][2] boardGrid[1][2] boardGrid[2][2]
+
+            //Winning diagonal combinations:
+            // boardGrid[0][0] boardGrid[1][1] boardGrid[2][2]
+            // boardGrid[0][2] boardGrid[1][1] boardGrid[2][0]
+
+            if(boardGrid[0][0] === player && boardGrid[1][0] === player && boardGrid[2][0] ) {
+                winner = player
+            } else if( boardGrid[0][1] === player && boardGrid[1][1] === player && boardGrid[2][1] === player) {
+                winner = player
+            } else if(boardGrid[0][2] === player && boardGrid[1][2] === player && boardGrid[2][2] === player ) {
+                winner = player
+            } else if(boardGrid[0][0] === player && boardGrid[1][1] === player && boardGrid[2][0] === player ) {
+                winner = player
+            }
+
+            //Check for tie game winner
             if(availablePositions.length === 0) {
                 winner = 'tie game'
             }
