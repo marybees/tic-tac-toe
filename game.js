@@ -41,16 +41,19 @@ function ticTacToe() {
         })
     };
 
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * max - min) + min
-    };
+    function getRandomPosition(array) {
+        const randomIndex = Math.floor(Math.random() * array.length);
+        const position = array[randomIndex];
+        return position;
+    }
 
     do {
         //Loop through the list of players ("x" and "o") and do the following for each until there is a winner:
         playerList.forEach(player => {
+            console.log({availablePositions})
             //Player randomly selects position from array of available positions
 
-            let selectedPosition = getRandomInt(1, availablePositions.length)
+            let selectedPosition = getRandomPosition(availablePositions)
             console.log({selectedPosition})
 
             //After the player selects position, it is removed from the array so it isn't selected again
@@ -69,15 +72,18 @@ function ticTacToe() {
 
             displayBoard(boardGrid)
 
-        })
-    } while (winner = null);
+            if(availablePositions.length === 0) {
+                winner = 'tie game'
+            }
 
+        })
+    } while (winner === null);
+
+    console.log({winner})
 
     if(winner != null) {
         return winner
     }
-
-      //winner = playerOne or playerTwo or DRAW
 
 }
 
