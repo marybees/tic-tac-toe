@@ -14,48 +14,70 @@
 
 ///3.) Create a function that check for a winning three in a row
 
-let gameState =
-[
-    ['x', ' ', ' '],
-    [' ', ' ', ' '],
-    [' ', ' ', ' '],
-]
-
-let positions = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-]
-
-function displayBoard(gameState) {
-
-    gameState.forEach(row => {
-        console.log(`|${row.join('|')}|`)
-        console.log('-------')
-    })
-}
-
-displayBoard(positions)
-
 
 function ticTacToe() {
 
+    // Variables
+
     let winner = null;
 
-    const playerOne = 'x'
-    const playerTwo = 'o'
+    let boardGrid = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+    ]
 
-    const playerList = [playerOne, playerTwo]
+    let availablePositions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    const playerList = ['x', 'o']
+
+    //Helper Functions
+
+    function displayBoard(gameState) {
+
+        gameState.forEach(row => {
+            console.log(`|${row.join('|')}|`)
+            console.log('-------')
+        })
+    };
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * max - min) + min
+    };
 
     do {
+        //Loop through the list of players ("x" and "o") and do the following for each until there is a winner:
         playerList.forEach(player => {
-            //select a position from the === ' '
-        })
-      } while (winner = null);
+            //Player randomly selects position from array of available positions
 
+            let selectedPosition = getRandomInt(1, availablePositions.length)
+            console.log({selectedPosition})
+
+            //After the player selects position, it is removed from the array so it isn't selected again
+            let selectedPositionIndex = availablePositions.indexOf(selectedPosition)
+            availablePositions.splice(selectedPositionIndex, 1 )
+            console.log({availablePositions})
+
+            //Loop through the tic tac toe board grid
+            boardGrid.forEach(rowArray => {
+                //if a row in the grid includes the position the player selected, it is replaced with the player aka "x" or "o"
+                if(rowArray.includes(selectedPosition)) {
+                    let selectedPositionIndex = rowArray.indexOf(selectedPosition)
+                    rowArray.splice(selectedPositionIndex, 1, player)
+                }
+            })
+
+            displayBoard(boardGrid)
+
+        })
+    } while (winner = null);
+
+
+    if(winner != null) {
+        return winner
+    }
 
       //winner = playerOne or playerTwo or DRAW
-
 
 }
 
